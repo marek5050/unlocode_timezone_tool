@@ -1,0 +1,37 @@
+#!/usr/bin/env python
+import json
+import sys
+import main
+CONFIG = {}
+
+
+if __name__ == '__main__':
+
+
+    print(sys.argv)
+    CONFIG = json.loads(sys.argv[1])
+
+    if "unlocode" not in CONFIG:
+        print(json.dumps({"error": "no unlocode was provided"}))
+        exit(0)
+
+    unlocode = CONFIG["unlocode"].upper()
+    row_from_db = main.get_row(CONFIG["unlocode"])
+
+    if isinstance(row_from_db, str):
+        print(json.dumps({"error": row_from_db}))
+        exit(0)
+
+    if row_from_db is None:
+        print(json.dumps({"error": "unlocode %s cannot be found" %(CONFIG["unlocode"])}))
+        exit(0)
+
+    timezoneturtle = main.get_timezone123(row_from_db)
+
+    returnvalue = row_from_db.__dict__
+
+    returnvalue["timezone"] = timezoneturtle
+    returnvalue["current_time"] = main.get_local_time(returnvalue)
+
+    del returnvalue["_sa_instance_state"]
+    print(json.dumps(returnvalue))

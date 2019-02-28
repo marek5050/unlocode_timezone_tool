@@ -1,16 +1,1 @@
 # Time-Zone-Finder
-# Time-Zone-Finder
-# Time-Zone-Finder
-# Time-Zone-Finder
-# Time-Zone-Finder
-# Time-Zone-Finder-Test
-# Time-Zone-Finder
-# Time-Zone-Finder
-# Time-Zone-Finder
-# Time-Zone-Finder
-# Time-Zone-Finder
-# Time-Zone-Finder
-# Time-Zone-Finder
-# Time-Zone-Finder
-# Time-Zone-Finder
-# Time-Zone-Finder-Final
