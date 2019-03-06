@@ -11,12 +11,14 @@ if __name__ == '__main__':
     print(sys.argv)
     CONFIG = json.loads(sys.argv[1])
 
+    main.CONFIG = CONFIG
+
     if "unlocode" not in CONFIG:
         print(json.dumps({"error": "no unlocode was provided"}))
         exit(0)
 
     unlocode = CONFIG["unlocode"].upper()
-    row_from_db = main.get_row(CONFIG["unlocode"])
+    row_from_db = main.get_row(unlocode)
 
     if isinstance(row_from_db, str):
         print(json.dumps({"error": row_from_db}))

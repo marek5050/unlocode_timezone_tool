@@ -44,7 +44,7 @@ def get_row(unlocode):
         return rs
 
     except Exception as e:
-        return "bad connection string"
+        return "bad connection string: %s" %e
 
 
 def get_timezone123(row_from_db):

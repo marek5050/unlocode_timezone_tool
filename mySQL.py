@@ -27,13 +27,13 @@ class UNLocode(Base):
 
 def start_mysql_session(config):
     uri = config["MYSQL_EP"]
-
     engine = create_engine(
         uri,
         encoding="utf8",
         echo=False,
         pool_size=30,
         pool_recycle=15)
+
 
     Session = sessionmaker(bind=engine)
     session = Session()
