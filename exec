@@ -2,14 +2,16 @@
 import json
 import sys
 import main
+from datetime import datetime
+
 CONFIG = {}
 
 
 if __name__ == '__main__':
 
-
     print(sys.argv)
     CONFIG = json.loads(sys.argv[1])
+    print(json.dumps({"status":"ok"}))
 
     main.CONFIG = CONFIG
 
@@ -18,6 +20,12 @@ if __name__ == '__main__':
         exit(0)
 
     unlocode = CONFIG["unlocode"].upper()
+
+
+    timestamp = datetime.now()
+    if "timestamp" in CONFIG:
+        timestamp = CONFIG["timestamp"]
+
     row_from_db = main.get_row(unlocode)
 
     if isinstance(row_from_db, str):
@@ -28,12 +36,12 @@ if __name__ == '__main__':
         print(json.dumps({"error": "unlocode %s cannot be found" %(CONFIG["unlocode"])}))
         exit(0)
 
-    timezoneturtle = main.get_timezone123(row_from_db)
+    timezoneturtle = main.get_timezone(row_from_db)
 
     returnvalue = row_from_db.__dict__
 
     returnvalue["timezone"] = timezoneturtle
-    returnvalue["current_time"] = main.get_local_time(returnvalue)
+    returnvalue["current_time"] = main.get_local_time(returnvalue, timestamp)
 
     del returnvalue["_sa_instance_state"]
     print(json.dumps(returnvalue))

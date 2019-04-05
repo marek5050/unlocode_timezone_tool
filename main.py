@@ -1,3 +1,4 @@
+import dateutil.parser
 from timezonefinder import TimezoneFinder
 from pytz import timezone
 import pytz
@@ -13,20 +14,10 @@ CONFIG = {"MYSQL_EP": os.getenv("MYSQL_EP", None)}
 tf = TimezoneFinder()
 
 
-def get_timezone(coordinates):
-    result = tf.closest_timezone_at(lat=coordinates[0], lng=coordinates[1])  # correct but much slower
-    return result
+# def get_timezone(coordinates):
+#     result = tf.closest_timezone_at(lat=coordinates[0], lng=coordinates[1])  # correct but much slower
+#     return result
 
-
-
-"""
-def mainSomething():
-
-    my_array = [[-37.31, 145.21], [47.42, -3.06], [22.28, 114.18], [54.56, -7.27], [15.09, 74.03], [41.1, 16.69], [36.61, 127.42], [23.55, -106.25], [33.26, -94.25], [45.47, 47.32] ]
-    for coordinates in my_array:
-            result = tf.closest_timezone_at(lat=coordinates[0], lng = coordinates[1])
-            print(result)
-"""
 
 def get_row(unlocode):
     global CONFIG
@@ -47,18 +38,26 @@ def get_row(unlocode):
         return "bad connection string: %s" %e
 
 
-def get_timezone123(row_from_db):
+def get_timezone(row_from_db):
     return tf.closest_timezone_at(lat=row_from_db.lat, lng=row_from_db.lng)
 
 
-def get_local_time(target):
+def get_local_time(target, timestamp = datetime.now()):
     """
     returns a location's time zone offset from UTC in minutes.
     """
 
-    today = datetime.now()
+    if isinstance(timestamp,datetime) == False:
+        if isinstance(timestamp,int): ### Convert from Unix Epoch to Datetime
+            timestamp = datetime.fromtimestamp(timestamp, pytz.utc)
+        else: ### Parse IS8601 to Datetime
+            timestamp = dateutil.parser.parse(timestamp)
+
     tz_target = timezone(tf.closest_timezone_at(lat=target["lat"], lng=target["lng"]))
     # ATTENTION: tz_target could be None! handle error case
-    today_target = tz_target.localize(today)
+    if tz_target is None:
+        return timestamp
 
-    return today_target.isoformat()
+    target_timezone = timestamp.astimezone(tz_target)
+
+    return target_timezone.isoformat()
