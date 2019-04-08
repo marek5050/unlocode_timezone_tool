@@ -19,7 +19,7 @@ updatefunc:
 	ibmcloud target -o ${ORG} -s ${SPACE}; \
 	ibmcloud fn action update ${FUNCTION_NAME} --docker ${IMAGE_NAME} --param MYSQL_EP ${MYSQL_EP}
 
-fn_daily_sandbox:
+fn_test:
 	ibmcloud fn action invoke ${FUNCTION_NAME} --param unlocode USHOU --param timestamp 1549367920
 
 fn_logs:
@@ -29,4 +29,7 @@ run_docker:
 	docker run ${IMAGE_NAME}
 
 test_unocode:
-	@ ./exec '{"MYSQL_EP":"${MYSQL_EP}","unlocode":"USHOU","timestamp":1549367920000}'
+	@ ./exec '{"MYSQL_FILE":"dataset/unlocode_list_with_gps.csv","unlocode":"USHOU","timestamp":1549367920000}'
+
+test_unocode_with_db:
+	@ ./exec '{"MYSQL_EP":${MYSQL_EP},"unlocode":"USHOU","timestamp":1549367920000}'

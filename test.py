@@ -1,6 +1,7 @@
+import base64
 import unittest
 import main
-
+import os
 
 class Coordinates():
     def __init__(self, lat, lng):
@@ -9,6 +10,13 @@ class Coordinates():
 
 class TestStringMethods(unittest.TestCase):
     def setUp(self):
+        ep = os.getenv("MYSQL_EP", None)
+        if ep is not None:
+            enc = base64.b64decode(ep)
+            if enc is not None:
+                main.CONFIG = {"MYSQL_EP": enc.decode("utf-8")}
+        else:
+            main.CONFIG = {"MYSQL_FILE": "dataset/unlocode_list_with_gps.csv"}
         pass
 
     def test_get_timezone1(self): #unit test 1
@@ -44,7 +52,7 @@ class TestStringMethods(unittest.TestCase):
         returnvalue["current_time"] = main.get_local_time(returnvalue)
 
         print(returnvalue["current_time"])  ## 2019-02-20T10:54:26+11:00
-        self.assertTrue("+11:00"in returnvalue["current_time"])
+        self.assertTrue("+11:00" in returnvalue["current_time"] or "+10:00" in returnvalue["current_time"])
 
         return returnvalue
 
@@ -81,11 +89,21 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(result.lat, -37.31)
         self.assertEqual(result.lng, 145.21)
 
+    def test_get_row_file(self):
+        unlocode = "AUN7K"
+        if "MYSQL_EP" in main.CONFIG:
+            del main.CONFIG["MYSQL_EP"]
+        main.CONFIG["MYSQL_FILE"]="dataset/unlocode_list_with_gps.csv"
+        result = main.get_row(unlocode)
+        self.assertIsNotNone(result)
+        self.assertEqual(result.lat, -37.31)
+        self.assertEqual(result.lng, 145.21)
+
 
     ### Tests for daylight savings in San Francisco -> DST -8 -> -7 Mar3-Nov3
     def test_DaylightSavings1Epoch(self):
         unlocode = "USSFO"
-        timestampInEpoch = int(int("1549367920000")/1000)
+        timestampInEpoch = 1549367920000
 
         row_from_db = main.get_row(unlocode)
         self.assertEqual([row_from_db.lat, row_from_db.lng], [37.77, -122.41])
@@ -105,7 +123,7 @@ class TestStringMethods(unittest.TestCase):
 
     def test_DaylightSavings2Epoch(self):
         unlocode = "USSFO"
-        timestampInEpoch = int(int("1554465520000")/1000)
+        timestampInEpoch = int("1554465520000")
 
         row_from_db = main.get_row(unlocode)
         self.assertEqual([row_from_db.lat, row_from_db.lng], [37.77, -122.41])
@@ -165,6 +183,42 @@ class TestStringMethods(unittest.TestCase):
         self.assertTrue("-07:00" in returnvalue["current_time"])
 
         return returnvalue
+
+
+    def test_incorrect_unlocode(self):  #tests for incorrect unlocode input ex. user inputs HOUST instead of USHOU
+        unlocode = "HOUST"
+        row_from_db = main.get_row(unlocode)
+        self.assertIsNone(row_from_db)
+
+    def test_unlocode_total(self):  # tests that there are five characters total
+        unlocode = "USHOU"
+        row_from_db = main.get_row(unlocode)
+        self.assertEqual(len(row_from_db.id), 5)
+
+    def test_unlocode_first_two(self): #tests to make sure the first two characters are letters
+        unlocode = "USHOU"
+        row_from_db = unlocode[:2]
+        self.assertTrue(row_from_db.isalpha())
+
+    def test_unlocode_last_three(self): #tests that the last three are letters or digits
+        unlocode = "USHOU"
+        row_from_db = unlocode[-3:]
+        self.assertTrue(row_from_db.isalnum())
+
+    def test_sql_credentials_missing(self):
+        main.CONFIG= {}
+        unlocode = "USHOU"
+        row_from_db = main.get_row(unlocode)
+        self.assertEqual(row_from_db,"no connection string")
+
+    # def test_sql_credentials_incorrect(self):
+    #     main.CONFIG= {"MYSQL_EP": "bad string"}
+    #     unlocode = "USHOU"
+    #     row_from_db = main.get_row(unlocode)
+    #     self.assertEqual(row_from_db, "bad connection string")
+
+
+
 
 
     #def test_attempt1(self):

@@ -3,14 +3,21 @@ import json
 import sys
 import main
 from datetime import datetime
-
+import base64
 CONFIG = {}
 
 
 if __name__ == '__main__':
 
-    print(sys.argv)
     CONFIG = json.loads(sys.argv[1])
+    ep = CONFIG["MYSQL_EP"]
+    if ep is not None:
+        enc = base64.b64decode(ep)
+        if enc is not None:
+            CONFIG["MYSQL_EP"] = enc.decode("utf-8")
+    else:
+        CONFIG["MYSQL_FILE"] = "dataset/unlocode_list_with_gps.csv"
+
     print(json.dumps({"status":"ok"}))
 
     main.CONFIG = CONFIG

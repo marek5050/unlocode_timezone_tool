@@ -12,6 +12,6 @@ RUN apk add --no-cache mariadb-dev g++ py-mysqldb && \
 
 ADD *.py /action/
 ADD exec /action/exec
-
+ADD dataset/unlocode_list_with_gps.csv dataset/unlocode_list_with_gps.csv
 
 CMD ["/bin/bash", "-c", "cd actionProxy && python -u actionproxy.py"]
