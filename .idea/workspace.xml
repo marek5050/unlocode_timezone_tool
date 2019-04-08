@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="93eb0594-5db0-4e30-9ec3-1bf49804f677" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Agent" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exec" beforeDir="false" afterPath="$PROJECT_DIR$/exec" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iso8601.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logicflow.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -51,7 +42,7 @@
           <entry key="dockerignore" value="1" />
           <entry key="env" value="6" />
           <entry key="exec" value="4" />
-          <entry key="gitignore" value="2" />
+          <entry key="gitignore" value="3" />
           <entry key="md" value="1" />
           <entry key="py" value="37" />
           <entry key="rst" value="1" />
@@ -64,7 +55,7 @@
           <entry key="Dockerfile" value="2" />
           <entry key="Makefile" value="2" />
           <entry key="Markdown" value="1" />
-          <entry key="PLAIN_TEXT" value="13" />
+          <entry key="PLAIN_TEXT" value="14" />
           <entry key="Python" value="41" />
           <entry key="ReST" value="1" />
         </counts>
@@ -76,6 +67,7 @@
           <entry key="csv" value="44" />
           <entry key="env" value="7" />
           <entry key="exec" value="268" />
+          <entry key="gitignore" value="12" />
           <entry key="md" value="2" />
           <entry key="py" value="2195" />
           <entry key="txt" value="93" />
@@ -87,7 +79,7 @@
           <entry key="Dockerfile" value="26" />
           <entry key="Makefile" value="126" />
           <entry key="Markdown" value="2" />
-          <entry key="PLAIN_TEXT" value="137" />
+          <entry key="PLAIN_TEXT" value="149" />
           <entry key="Python" value="2463" />
         </counts>
       </usages-collector>
@@ -117,7 +109,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="195">
@@ -125,6 +117,15 @@
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" column="11" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -175,6 +176,7 @@
         <option value="$PROJECT_DIR$/Dockerfile" />
         <option value="$PROJECT_DIR$/tests.py" />
         <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -566,13 +568,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="4" lean-forward="true" selection-start-column="4" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/exec">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="128">
@@ -611,6 +606,13 @@
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="11" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
         </state>
       </provider>
     </entry>
